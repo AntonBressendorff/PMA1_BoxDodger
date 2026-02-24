@@ -12,8 +12,8 @@ PlayerSettings:
   targetDevice: 2
   useOnDemandResources: 0
   accelerometerFrequency: 60
-  companyName: IvanCompany
-  productName: MobileGameStart
+  companyName: antonCompaby
+  productName: PMA1_BoxDodger
   defaultCursor: {fileID: 0}
   cursorHotspot: {x: 0, y: 0}
   m_SplashScreenBackgroundColor: {r: 0.13725491, g: 0.12156863, b: 0.1254902, a: 1}
@@ -70,6 +70,7 @@ PlayerSettings:
   androidStartInFullscreen: 1
   androidRenderOutsideSafeArea: 1
   androidUseSwappy: 1
+  androidDisplayOptions: 1
   androidBlitType: 0
   androidResizeableActivity: 1
   androidDefaultWindowWidth: 1920
@@ -86,6 +87,7 @@ PlayerSettings:
   muteOtherAudioSources: 0
   Prepare IOS For Recording: 0
   Force IOS Speakers When Recording: 0
+  audioSpatialExperience: 0
   deferSystemGesturesMode: 0
   hideHomeButton: 0
   submitAnalytics: 1
@@ -164,7 +166,7 @@ PlayerSettings:
   androidMaxAspectRatio: 2.4
   androidMinAspectRatio: 1
   applicationIdentifier:
-    Android: com.IvanCompany.MobileGameStart
+    Android: com.antonCompaby.PMA1_BoxDodger
     Standalone: com.DefaultCompany.2D-URP
   buildNumber:
     Standalone: 0
@@ -173,7 +175,7 @@ PlayerSettings:
     tvOS: 0
   overrideDefaultApplicationIdentifier: 0
   AndroidBundleVersionCode: 1
-  AndroidMinSdkVersion: 28
+  AndroidMinSdkVersion: 24
   AndroidTargetSdkVersion: 0
   AndroidPreferredInstallLocation: 1
   aotOptions: 
@@ -263,7 +265,7 @@ PlayerSettings:
   useCustomGradlePropertiesTemplate: 0
   useCustomGradleSettingsTemplate: 0
   useCustomProguardFile: 0
-  AndroidTargetArchitectures: 2
+  AndroidTargetArchitectures: 3
   AndroidSplashScreenScale: 0
   androidSplashScreen: {fileID: 0}
   AndroidKeystoreName: 
@@ -273,6 +275,9 @@ PlayerSettings:
   AndroidBuildApkPerCpuArchitecture: 0
   AndroidTVCompatibility: 0
   AndroidIsGame: 1
+  androidAppCategory: 3
+  useAndroidAppCategory: 1
+  androidAppCategoryOther: 
   AndroidEnableTango: 0
   androidEnableBanner: 1
   androidUseLowAccuracyLocation: 0
@@ -399,6 +404,7 @@ PlayerSettings:
     iPhone: 1
     tvOS: 1
   m_BuildTargetGroupLightmapEncodingQuality: []
+  m_BuildTargetGroupHDRCubemapEncodingQuality: []
   m_BuildTargetGroupLightmapSettings: []
   m_BuildTargetGroupLoadStoreDebugModeSettings: []
   m_BuildTargetNormalMapEncoding: []
