@@ -1,11 +1,16 @@
+using System.Diagnostics;
+using System.Xml.Serialization;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Debug = UnityEngine.Debug;
+
 
 
 public class Player : MonoBehaviour
 {
 
     public float moveSpeed;
+    public DodgerAttributes attributes = new DodgerAttributes(3, 3, 0); //initialize attributes: 3 health, 3 max health, 0 score.
     Rigidbody2D rb;
 
     [SerializeField] InputSys inputSys;
@@ -57,7 +62,14 @@ public class Player : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Brick"))
         {
-            SceneManager.LoadScene(0);
+            attributes.setHealth(attributes.getHealth() - 1); //Loose 1 health
+            // Debug.Log("health: " + attributes.getHealth());
+            Debug.Log("score: " + attributes.getCurrentScore());
+
+            if (attributes.getHealth() <= 0) //Game Over if health <= 0
+            {
+                SceneManager.LoadScene(0);
+            }
         }
     }
 

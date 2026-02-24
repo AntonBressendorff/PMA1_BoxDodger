@@ -1,3 +1,4 @@
+using System.Security;
 using TMPro;
 using UnityEngine;
 
@@ -10,12 +11,16 @@ public class GameManager : MonoBehaviour
 
     bool gameStarted = false;
 
+    public Player player;
+
 
     public GameObject tapText;
     public TextMeshProUGUI scoreText;
 
 
     int score = 0;
+    
+    
 
     Vector2 screenPos;
 
@@ -30,6 +35,7 @@ public class GameManager : MonoBehaviour
             gameStarted = true;
             tapText.SetActive(false);
         }
+        
     }
 
 
@@ -64,7 +70,7 @@ public class GameManager : MonoBehaviour
 
     void UpdateText(int score)
     {
-
+        player.attributes.setCurrentScore(score);
         scoreText.text = score.ToString();
     }
 }
