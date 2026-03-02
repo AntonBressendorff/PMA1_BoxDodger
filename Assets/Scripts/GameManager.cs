@@ -5,7 +5,7 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
 
-    public GameObject brickPref;
+    public GameObject[] brickPrefs;
 
     public float spawnRate;
 
@@ -60,7 +60,9 @@ public class GameManager : MonoBehaviour
         worldPos.y += 1f;
         worldPos.z = 0f;
 
-        Instantiate(brickPref, worldPos, Quaternion.identity);
+        int RandomIndex = Random.Range(0, brickPrefs.Length); //generate random index within brickPrefs array
+
+        Instantiate(brickPrefs[RandomIndex], worldPos, Quaternion.identity); //spawn random brick type based on random index
 
         score++;
 
