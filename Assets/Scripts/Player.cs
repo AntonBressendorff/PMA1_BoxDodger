@@ -12,6 +12,10 @@ public class Player : MonoBehaviour
     public float moveSpeed;
     public DodgerAttributes attributes = new DodgerAttributes(3, 3, 0); //initialize attributes: 3 health, 3 max health, 0 score.
     Rigidbody2D rb;
+    private bool isInvincible = false; //takes no dmg when true
+    private bool hasItem = false; //only allow one held item at a time
+
+    private EnemyTag.enemyTag heldItem; //Use enum to tack current picked up item
 
     [SerializeField] InputSys inputSys;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -62,17 +66,57 @@ public class Player : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Brick"))
         {
-            attributes.setHealth(attributes.getHealth() - 1); //Loose 1 health
-            // Debug.Log("health: " + attributes.getHealth());
-            Debug.Log("score: " + attributes.getCurrentScore());
-
-            if (attributes.getHealth() <= 0) //Game Over if health <= 0
+            if (collision.gameObject.enemyTag == EnemyTag.enemyTag[3])//Health pickup
             {
-                SceneManager.LoadScene(0);
+                HealthPickup(); //maybe replace  with generic pickupItem method that works for all items? 
+
+            } else if (collision.gameObject.enemyTag == EnemyTag.enemyTag[2]) //Shield pickup
+            {
+                ShieldPickup();
+            }
+            else if (isInvincible != true) //if colliding with actual enemy (and not invincible) loose health and check for game over
+            {
+                attributes.setHealth(attributes.getHealth() - 1); //Loose 1 health
+                // Debug.Log("health: " + attributes.getHealth());
+                Debug.Log("score: " + attributes.getCurrentScore());
+
+                if (attributes.getHealth() <= 0) //Game Over if health <= 0
+                {
+                    SceneManager.LoadScene(0);
+                }
             }
         }
     }
 
+    private void HealthPickup()
+    {
+        if (attributes.getHealth() < attributes.getMaxHealth())
+        {
+            attributes.setHealth(attributes.getHealth() + 1); //Heal 1 health, but only if not at max health
+        }
+    }
+
+
+    private IEnumerator InvincibilityTimer()
+    {
+        yield return new WaitForSeconds(5f); //Invincibility lasts for 5 seconds
+        isInvincible = false;
+    }
+
+    private void ShieldPickup()
+    {
+        isInvincible = true;
+        StartCoroutine(InvincibilityTimer()); //start timer for invincibility
+    }
+
+    private void UseItem(EnemyTag.enemyTag item)
+    {
+        switch (item)
+        {
+            case EnemyTag.enemyTag.ItemHealth:
+                //either move functionality from Health/Shield-Pickup here or just call but rename them from here.
+        }
+    }
 
     
 

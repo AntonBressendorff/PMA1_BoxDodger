@@ -5,6 +5,7 @@ public abstract class BaseEnemy : MonoBehaviour
 
     protected float gravityScale = 1f;
     Rigidbody2D rb;
+    [SerializeField] public EnemyTag.enemyTag enemyTag; //set tag in inspector
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
