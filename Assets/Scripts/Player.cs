@@ -1,8 +1,10 @@
 using System.Diagnostics;
+using System.Collections;
 using System.Xml.Serialization;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Debug = UnityEngine.Debug;
+using System.Diagnostics.CodeAnalysis;
 
 
 
@@ -10,8 +12,11 @@ public class Player : MonoBehaviour
 {
 
     public float moveSpeed;
+    [SerializeField] private float ShieldDuration = 5f;
     public DodgerAttributes attributes = new DodgerAttributes(3, 3, 0); //initialize attributes: 3 health, 3 max health, 0 score.
     Rigidbody2D rb;
+
+    private bool isShielded = false;
 
     [SerializeField] InputSys inputSys;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -58,13 +63,34 @@ public class Player : MonoBehaviour
 
     }
 
+    private IEnumerator EffectTimer(float duration)
+    {
+        yield return new WaitForSeconds(duration);
+        GetComponent<SpriteRenderer>().color = Color.white; // Change color to indicate shield is inactive now
+        isShielded = false;
+    }
+
+    public void ApplyShield()
+    {
+        isShielded = true;
+        GetComponent<SpriteRenderer>().color = Color.blue; // Change color to indicate shield is active
+
+        // Debug.Log("Shield applied! Player is now invulnerable for " + ShieldDuration + " seconds.");
+
+        StartCoroutine(EffectTimer(ShieldDuration)); // start cooutine with duration of 5 seconds
+    }
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Brick"))
+        if (collision.gameObject.CompareTag("Brick") && isShielded == false)
         {
             attributes.setHealth(attributes.getHealth() - 1); //Loose 1 health
+
             // Debug.Log("health: " + attributes.getHealth());
-            Debug.Log("score: " + attributes.getCurrentScore());
+
+            Debug.Log("health: " + attributes.getHealth());
+            
+            // Debug.Log("score: " + attributes.getCurrentScore());
 
             if (attributes.getHealth() <= 0) //Game Over if health <= 0
             {
