@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using Debug = UnityEngine.Debug;
 using System.Diagnostics.CodeAnalysis;
+using System.Security.AccessControl;
 
 
 
@@ -19,6 +20,9 @@ public class Player : MonoBehaviour
     private bool isShielded = false;
 
     [SerializeField] InputSys inputSys;
+    
+    // [SerializeField] public bool TrueForTilt_FalseForTouch = false;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -28,39 +32,40 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        
+            //REMOVE COMMENT AND COMMENT TILT-CODE IN SENS_GYRO.CS TO USE TOUCH CONTROLS
+        // float moveDir = 0f;
 
-        float moveDir = 0f;
+        // Vector2 screenPos;
 
-        Vector2 screenPos;
-
-        if (inputSys.IsPressing(out screenPos))
-        {
-            Vector3 touchPos = Camera.main.ScreenToWorldPoint(new Vector3(screenPos.x, screenPos.y, 0f));
-
-
-            if (touchPos.x < 0)
-            {
-                moveDir = -1f;
-            }
-            else
-            {
-                moveDir = 1f;
-            }
-
-        }
+        // if (inputSys.IsPressing(out screenPos))
+        // {
+        //     Vector3 touchPos = Camera.main.ScreenToWorldPoint(new Vector3(screenPos.x, screenPos.y, 0f));
 
 
-        Vector3 viewportPos = Camera.main.WorldToViewportPoint(rb.position);
+        //     if (touchPos.x < 0)
+        //     {
+        //         moveDir = -1f;
+        //     }
+        //     else
+        //     {
+        //         moveDir = 1f;
+        //     }
 
-        if ((viewportPos.x <= 0f && moveDir < 0f) || (viewportPos.x >= 1f && moveDir > 0f))
-        {
-            moveDir = 0f;
-        }
+        // }
 
 
-        rb.linearVelocity = new Vector2(moveDir * moveSpeed, rb.linearVelocity.y);
+        // Vector3 viewportPos = Camera.main.WorldToViewportPoint(rb.position);
+
+        // if ((viewportPos.x <= 0f && moveDir < 0f) || (viewportPos.x >= 1f && moveDir > 0f))
+        // {
+        //     moveDir = 0f;
+        // }
 
 
+        // rb.linearVelocity = new Vector2(moveDir * moveSpeed, rb.linearVelocity.y);
+
+        
     }
 
     private IEnumerator EffectTimer(float duration)
