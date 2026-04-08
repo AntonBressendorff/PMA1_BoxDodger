@@ -6,11 +6,14 @@ using UnityEngine.SceneManagement;
 using Debug = UnityEngine.Debug;
 using System.Diagnostics.CodeAnalysis;
 using System.Security.AccessControl;
+// using System.Numerics;
 
 
 
 public class Player : MonoBehaviour
 {
+    public Vector2 moveInput;
+    [SerializeField] private DataSaver dataSaver;
 
     public float moveSpeed;
     [SerializeField] private float ShieldDuration = 5f;
@@ -23,6 +26,11 @@ public class Player : MonoBehaviour
     
     // [SerializeField] public bool TrueForTilt_FalseForTouch = false;
 
+    private void awake()
+    {
+        
+    }
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -34,38 +42,38 @@ public class Player : MonoBehaviour
     {
         
             //REMOVE COMMENT AND COMMENT TILT-CODE IN SENS_GYRO.CS TO USE TOUCH CONTROLS
-        // float moveDir = 0f;
+        float moveDir = 0f;
 
-        // Vector2 screenPos;
+        Vector2 screenPos;
 
-        // if (inputSys.IsPressing(out screenPos))
-        // {
-        //     Vector3 touchPos = Camera.main.ScreenToWorldPoint(new Vector3(screenPos.x, screenPos.y, 0f));
-
-
-        //     if (touchPos.x < 0)
-        //     {
-        //         moveDir = -1f;
-        //     }
-        //     else
-        //     {
-        //         moveDir = 1f;
-        //     }
-
-        // }
+        if (inputSys.IsPressing(out screenPos))
+        {
+            Vector3 touchPos = Camera.main.ScreenToWorldPoint(new Vector3(screenPos.x, screenPos.y, 0f));
 
 
-        // Vector3 viewportPos = Camera.main.WorldToViewportPoint(rb.position);
+            if (touchPos.x < 0)
+            {
+                moveDir = -1f;
+            }
+            else
+            {
+                moveDir = 1f;
+            }
 
-        // if ((viewportPos.x <= 0f && moveDir < 0f) || (viewportPos.x >= 1f && moveDir > 0f))
-        // {
-        //     moveDir = 0f;
-        // }
+        }
 
 
-        // rb.linearVelocity = new Vector2(moveDir * moveSpeed, rb.linearVelocity.y);
+        Vector3 viewportPos = Camera.main.WorldToViewportPoint(rb.position);
 
-        
+        if ((viewportPos.x <= 0f && moveDir < 0f) || (viewportPos.x >= 1f && moveDir > 0f))
+        {
+            moveDir = 0f;
+        }
+
+
+        rb.linearVelocity = new Vector2(moveDir * moveSpeed, rb.linearVelocity.y);
+
+        moveInput = screenPos;
     }
 
     private IEnumerator EffectTimer(float duration)
@@ -99,6 +107,7 @@ public class Player : MonoBehaviour
 
             if (attributes.getHealth() <= 0) //Game Over if health <= 0
             {
+                dataSaver.SaveData();
                 SceneManager.LoadScene(0);
             }
         }

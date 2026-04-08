@@ -38,14 +38,14 @@ public class Sens_Gyro : MonoBehaviour
         
             //COMMENT THIS IF USING TOUCH CONTROLS \/
 
-        Vector3 tilt = Input.gyro.gravity;
-        Debug.Log("Tilt: "+ tilt);
+        // Vector3 tilt = Input.gyro.gravity;
+        // Debug.Log("Tilt: "+ tilt);
 
-        float moveX = tilt.x;
+        // float moveX = tilt.x;
 
-        Vector3 movement = new Vector3(moveX, 0f, 0f);
+        // Vector3 movement = new Vector3(moveX, 0f, 0f);
 
-        player.transform.Translate(movement * rotSpeed * Time.deltaTime);
+        // player.transform.Translate(movement * rotSpeed * Time.deltaTime);
         
     }
 }
